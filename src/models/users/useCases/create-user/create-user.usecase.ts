@@ -2,6 +2,7 @@ import { User } from "../../entities/user.entity";
 import { ParameterRequiredError } from "../../../../error/parameter-required.error";
 import { IUserRepository } from "../../repositories/user.repository";
 import { CustomError } from "../../../../error/custom.error";
+import { IPasswordCrypto } from "../../../../infra/shared/crypto/password.crypto";
 
 type UserRequest = {
   name: string;
@@ -10,7 +11,10 @@ type UserRequest = {
 };
 
 export class CreateUserCase {
-  constructor(private userRepository: IUserRepository) {}
+  constructor(
+    private userRepository: IUserRepository,
+    private passwordCrypto: IPasswordCrypto
+  ) {}
 
   async execute(data: UserRequest) {
     const user = User.create(data);
@@ -28,6 +32,9 @@ export class CreateUserCase {
         "USER_EXISTS_ERROR"
       );
     }
+
+    const passwordHashed = await this.passwordCrypto.hash(data.password);
+    user.password = passwordHashed;
 
     const userCreated = await this.userRepository.save(user);
 
