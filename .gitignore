@@ -1,5 +1,7 @@
 node_modules
 api.http
+logs/
 
 .env
 /src/generated/prisma
+

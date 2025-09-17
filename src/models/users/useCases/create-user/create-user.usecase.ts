@@ -1,6 +1,7 @@
 import { User } from "../../entities/user.entity";
 import { ParameterRequiredError } from "../../../../error/parameter-required.error";
 import { IUserRepository } from "../../repositories/user.repository";
+import { CustomError } from "../../../../error/custom.error";
 
 type UserRequest = {
   name: string;
@@ -21,7 +22,11 @@ export class CreateUserCase {
     const existUser = await this.userRepository.findByUsername(data.username);
 
     if (existUser) {
-      throw new Error("Username already exists");
+      throw new CustomError(
+        "Username already exists",
+        400,
+        "USER_EXISTS_ERROR"
+      );
     }
 
     const userCreated = await this.userRepository.save(user);
