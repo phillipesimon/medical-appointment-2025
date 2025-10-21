@@ -20,7 +20,7 @@ export class Speciality {
 
   static create(props: ISpeciality) {
     if (!props.name) {
-      throw new Error("Speciality is required!");
+      throw new Error("Speciality name is required!");
     }
 
     const speciality = new Speciality(props);
