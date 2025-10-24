@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createSpecialityController } from "../models/speciality/useCases/create-speciality";
+import { createSpecialityController } from "../modules/speciality/useCases/create-speciality";
 
 const specialityRouter = Router();
 
