@@ -1,4 +1,5 @@
 import { randomUUID } from "crypto";
+import { ParameterRequiredError } from "../../../error/parameter-required.error";
 
 type IUser = {
   name: string;
@@ -14,6 +15,10 @@ export class User {
   isAdmin: boolean;
 
   constructor({ name, password, username }: IUser) {
+    if (!username || !password) {
+      throw new ParameterRequiredError("Username/password is required.", 422);
+    }
+
     this.name = name;
     this.password = password;
     this.username = username;
