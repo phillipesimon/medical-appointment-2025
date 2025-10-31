@@ -5,19 +5,13 @@ import { IUserRepository } from "../../repositories/user.repository";
 import { IPasswordCrypto } from "../../../../infra/shared/crypto/password.crypto";
 
 export class CreateUserController {
-  constructor(
-    private userRepository: IUserRepository,
-    private passwordCrypto: IPasswordCrypto
-  ) {}
+  constructor(private userRepository: IUserRepository) {}
 
   async handle(request: Request, response: Response) {
     logger.info("Usuário sendo criado!");
     try {
       const data = request.body;
-      const useCase = new CreateUserCase(
-        this.userRepository,
-        this.passwordCrypto
-      );
+      const useCase = new CreateUserCase(this.userRepository);
 
       const result = await useCase.execute(data);
 
