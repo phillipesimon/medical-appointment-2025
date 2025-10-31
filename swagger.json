@@ -16,7 +16,7 @@
                         "bearerAuth": []
                     }
                 ],
-                "description": "Cadastro de especialidades",
+                "description": "Cadastro de especialidade",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -41,7 +41,7 @@
         },
         "/login": {
             "post": {
-                "description": "Autenticação de usuário",
+                "description": "Autenticação do usuário",
                 "tags": [
                     "users"
                 ],
@@ -60,6 +60,31 @@
                     },
                     "401": {
                         "description": "Mensagem de erro"
+                    }
+                }
+            }
+        },
+        "/doctors": {
+            "post": {
+                "description": "Cadastro de um médico",
+                "tags": [
+                    "doctors"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DoctorRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Médico criado com sucesso"
+                    },
+                    "400": {
+                        "description": "Erro de cadastro"
                     }
                 }
             }
@@ -101,7 +126,7 @@
                     },
                     "id": {
                         "type": "string",
-                        "description": "ID da especialidade cadastrada",
+                        "description": "Id da especialidade cadastrada",
                         "format": "uuid"
                     },
                     "createdAt": {
@@ -123,6 +148,42 @@
                         "type": "string",
                         "description": "password de login",
                         "example": "password_test"
+                    }
+                }
+            },
+            "DoctorRequest": {
+                "type": "object",
+                "properties": {
+                    "crm": {
+                        "type": "string",
+                        "description": "CRM do médico",
+                        "example": "123456",
+                        "length": 6
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email do médico",
+                        "example": "email@email.com.br"
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "Username do médico",
+                        "example": "username"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Senha do médico",
+                        "example": "password"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Nome do médico",
+                        "example": "username"
+                    },
+                    "specialityId": {
+                        "type": "string",
+                        "description": "Especialidade do médico",
+                        "format": "uuid"
                     }
                 }
             }
