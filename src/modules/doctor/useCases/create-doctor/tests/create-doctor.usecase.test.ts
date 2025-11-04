@@ -4,11 +4,12 @@ import {
   CreateDoctorRequest,
   CreateDoctorUseCase,
 } from "../create-doctor.usecase";
-import { DoctorMemoryRepository } from "../../../repositories/implementations/doctor-memory.repository";
+
 import { UserMemoryRepository } from "../../../../users/repositories/implementations/user.memory.repository";
 import { SpecialityMemoryRepository } from "../../../../speciality/repositories/implementations/speciality.memory.repository";
 import { Speciality } from "../../../../speciality/entities/speciality.entity";
 import { ISpecialityRepository } from "../../../../speciality/repositories/speciality.repository";
+import { DoctorMemoryRepository } from "../../../repositories/implementations/in-memory/doctor-memory.repository";
 
 let specialityRepository: ISpecialityRepository;
 let speciality: Speciality;
