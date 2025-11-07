@@ -47,6 +47,7 @@ export class CreateDoctorUseCase {
     }
 
     const userCreated = await this.userRepository.save(user);
+    console.log("user-created-CREATE_DOCTOR", userCreated.id);
 
     const doctor = Doctor.create({
       crm: data.crm,
@@ -54,6 +55,8 @@ export class CreateDoctorUseCase {
       specialityId: data.specialityId,
       userId: userCreated.id,
     });
+
+    console.log("DOCTOR-created-CREATE_DOCTOR", doctor.userId);
 
     const crmExists = await this.doctorRepository.findByCRM(data.crm);
 
@@ -66,4 +69,3 @@ export class CreateDoctorUseCase {
     return doctorCreated;
   }
 }
-11;

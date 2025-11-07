@@ -17,6 +17,7 @@ export class CreateDoctorInfoUseCase {
   ) {}
   async execute(data: DoctorInfoRequest, userId: string) {
     const doctorByUserID = await this.doctorRespository.findByUserID(userId);
+    console.log("DOCTOR_USER_ID", doctorByUserID?.userId);
 
     if (!doctorByUserID) {
       throw new CustomError("Doctor does not exists!");
@@ -27,7 +28,9 @@ export class CreateDoctorInfoUseCase {
       doctorId: doctorByUserID.id,
     });
 
-    const doctorCreated = await this.doctorInfoRepository.save(doctorInfo);
+    const doctorCreated = await this.doctorInfoRepository.saveOrUpdate(
+      doctorInfo
+    );
 
     return doctorCreated;
   }

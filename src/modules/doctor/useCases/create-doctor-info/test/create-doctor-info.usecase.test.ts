@@ -147,4 +147,41 @@ describe("Create Doctor Info", () => {
     );
     expect(doctorCreated).toHaveProperty("id");
   });
+
+  test("Should be able to update a doctor info", async () => {
+    const doctorRespository = new DoctorMemoryRepository();
+    const doctorInfoRepository = new DoctorInfoMemoryRepository();
+    const createDoctorInfoUseCase = new CreateDoctorInfoUseCase(
+      doctorRespository,
+      doctorInfoRepository
+    );
+
+    const userId = generateUUID();
+
+    await doctorRespository.save({
+      crm: "123456",
+      email: "doctor@test.com.br",
+      id: generateUUID(),
+      specialityId: generateUUID(),
+      userId,
+    });
+
+    const doctorInfo: DoctorInfoRequest = {
+      endAt: "18:00",
+      startAt: "10:00",
+      price: 150,
+      duration: 10,
+    };
+
+    const doctorUpdated = await createDoctorInfoUseCase.execute(
+      doctorInfo,
+      userId
+    );
+    const doctorCreated = await createDoctorInfoUseCase.execute(
+      doctorInfo,
+      userId
+    );
+    expect(doctorCreated).toHaveProperty("id");
+    expect(doctorCreated.id).toBe(doctorUpdated.id);
+  });
 });

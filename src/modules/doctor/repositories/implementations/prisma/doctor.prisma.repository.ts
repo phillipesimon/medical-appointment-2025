@@ -28,11 +28,25 @@ export class DoctorPrismaRepository implements IDoctorRepository {
     return null;
   }
 
-  findById(id: string): Promise<Doctor | null> {
-    throw new Error("Method not implemented.");
+  async findById(id: string): Promise<Doctor | null> {
+    const doctor = await prismaClient.doctor.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (doctor) return DoctorMapper.prismaToEntityDoctor(doctor);
+    return null;
   }
 
-  findByUserID(userID: string): Promise<Doctor | null> {
-    throw new Error("Method not implemented.");
+  async findByUserID(userID: string): Promise<Doctor | null> {
+    const doctor = await prismaClient.doctor.findUnique({
+      where: {
+        user_id: userID,
+      },
+    });
+
+    if (doctor) return DoctorMapper.prismaToEntityDoctor(doctor);
+    return null;
   }
 }
