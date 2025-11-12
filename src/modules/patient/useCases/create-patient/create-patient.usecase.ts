@@ -43,6 +43,15 @@ export class CreatePatientUseCase {
       userId: userCreated.id,
     });
 
+    const existsPatient = await this.patientRepository.findByDocumentOrEmail(
+      patient.document,
+      patient.email
+    );
+
+    if (existsPatient) {
+      throw new CustomError("Patient already exists!");
+    }
+
     const patientCreated = await this.patientRepository.save(patient);
 
     return patientCreated;
