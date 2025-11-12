@@ -35,6 +35,15 @@ export class CreatePatientUseCase {
       );
     }
 
+    const existsPatient = await this.patientRepository.findByDocumentOrEmail(
+      data.document,
+      data.email
+    );
+
+    if (existsPatient) {
+      throw new CustomError("Patient already exists!");
+    }
+
     const userCreated = await this.userRepository.save(user);
 
     const patient = Patient.create({
@@ -42,15 +51,6 @@ export class CreatePatientUseCase {
       email: data.email,
       userId: userCreated.id,
     });
-
-    const existsPatient = await this.patientRepository.findByDocumentOrEmail(
-      patient.document,
-      patient.email
-    );
-
-    if (existsPatient) {
-      throw new CustomError("Patient already exists!");
-    }
 
     const patientCreated = await this.patientRepository.save(patient);
 

@@ -19,10 +19,14 @@ export class PatientPrismaRepository implements IPatientRepository {
       where: {
         OR: [
           {
-            email,
+            email: {
+              contains: email,
+            },
           },
           {
-            document,
+            document: {
+              contains: document,
+            },
           },
         ],
       },
