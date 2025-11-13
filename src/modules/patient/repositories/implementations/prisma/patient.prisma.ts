@@ -36,10 +36,28 @@ export class PatientPrismaRepository implements IPatientRepository {
     }
     return null;
   }
-  findById(id: string): Promise<Patient | null> {
-    throw new Error("Method not implemented.");
+
+  async findById(id: string): Promise<Patient | null> {
+    const patient = await prismaClient.patient.findFirst({
+      where: {
+        id,
+      },
+    });
+    if (patient) {
+      return PatientMapper.prismaToEntity(patient);
+    }
+    return null;
   }
-  findByUserId(userId: string): Promise<Patient | null> {
-    throw new Error("Method not implemented.");
+
+  async findByUserId(userId: string): Promise<Patient | null> {
+    const patient = await prismaClient.patient.findFirst({
+      where: {
+        user_id: userId,
+      },
+    });
+    if (patient) {
+      return PatientMapper.prismaToEntity(patient);
+    }
+    return null;
   }
 }

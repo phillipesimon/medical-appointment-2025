@@ -5,8 +5,6 @@ import { generateUUID } from "../../../utils/generateUUID";
 export type DoctorInfoProps = {
   duration: number;
   price: number;
-  startAt: string;
-  endAt: string;
   doctorId: string;
 };
 
@@ -14,8 +12,6 @@ export class DoctorInfo {
   id: string;
   duration: number;
   price: number;
-  startAt: string;
-  endAt: string;
   doctorId: string;
 
   private constructor(props: DoctorInfoProps) {
@@ -30,8 +26,6 @@ export class DoctorInfo {
     this.id = generateUUID();
     this.duration = props.duration;
     this.price = props.price;
-    this.startAt = props.startAt;
-    this.endAt = props.endAt;
     this.doctorId = props.doctorId;
   }
   static create(data: DoctorInfoProps) {
