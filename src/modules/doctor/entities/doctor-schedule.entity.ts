@@ -5,7 +5,7 @@ import { generateUUID } from "../../../utils/generateUUID";
 type Schedules = {
   endAt: string;
   startAt: string;
-  dayOfWeek: string;
+  dayOfWeek: number;
   id?: string;
 };
 
