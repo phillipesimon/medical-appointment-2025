@@ -36,4 +36,10 @@ export class PatientPrismaRepository implements IPatientRepository {
     }
     return null;
   }
+  findById(id: string): Promise<Patient | null> {
+    throw new Error("Method not implemented.");
+  }
+  findByUserId(userId: string): Promise<Patient | null> {
+    throw new Error("Method not implemented.");
+  }
 }

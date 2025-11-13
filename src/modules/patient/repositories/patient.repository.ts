@@ -6,4 +6,6 @@ export interface IPatientRepository {
     document: string,
     email: string
   ): Promise<Patient | null>;
+  findById(id: string): Promise<Patient | null>;
+  findByUserId(userId: string): Promise<Patient | null>;
 }
