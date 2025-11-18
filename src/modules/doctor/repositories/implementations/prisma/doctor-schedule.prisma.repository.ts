@@ -34,6 +34,13 @@ export class DoctorSchedulePrismaRepository
           doctor_id: doctorId,
         },
       },
+      include: {
+        doctor: {
+          include: {
+            doctorInfo: true,
+          },
+        },
+      },
     });
 
     if (result) {

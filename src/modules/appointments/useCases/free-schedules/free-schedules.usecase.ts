@@ -51,7 +51,7 @@ export class FreeSchedulesUseCase {
 
     const startAt = doctorSchedule.startAt;
     const endAt = doctorSchedule.endAt;
-    const duration = 30;
+    const duration = doctorSchedule.doctor.doctorInfo.duration;
 
     let timeNow = startAt;
     const freeTime: FreeTime[] = [];
