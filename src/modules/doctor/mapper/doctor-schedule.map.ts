@@ -3,6 +3,13 @@ import { DoctorSchedule } from "../entities/doctor-schedule.entity";
 import { DoctorSchedules as DoctorSchedulePrisma } from "@prisma/client";
 import { generateUUID } from "../../../utils/generateUUID";
 
+export type DoctorScheduleWeek = {
+  startAt: string;
+  endAt: string;
+  dayOfWeek: number;
+  doctorId: string;
+};
+
 export class DoctorScheduleMapper {
   static entityToPrisma = (data: DoctorSchedule): DoctorSchedulePrisma[] => {
     const doctorSchedulePrisma: DoctorSchedulePrisma[] = [];
@@ -16,5 +23,16 @@ export class DoctorScheduleMapper {
       });
     });
     return doctorSchedulePrisma;
+  };
+
+  static prismaToEntity = (
+    schedule: DoctorSchedulePrisma
+  ): DoctorScheduleWeek => {
+    return {
+      doctorId: schedule.doctor_id,
+      startAt: schedule.start_at,
+      endAt: schedule.end_at,
+      dayOfWeek: schedule.day_of_week,
+    };
   };
 }
