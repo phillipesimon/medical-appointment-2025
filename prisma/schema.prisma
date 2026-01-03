@@ -93,7 +93,7 @@ model Appointment{
   patient Patient @relation(fields: [patient_id], references: [id])
   is_finished Boolean @default(false)
   date DateTime
-  note String
+  note String?
 
   @@map("appointments")
 

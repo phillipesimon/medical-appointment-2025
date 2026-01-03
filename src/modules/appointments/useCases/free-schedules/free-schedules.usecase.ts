@@ -44,7 +44,7 @@ export class FreeSchedulesUseCase {
     }
 
     const appointmentsByDoctorAndDate =
-      await this.appointmentRepository.findAllSchedulesByDoctorDate(
+      await this.appointmentRepository.findAllSchedulesByDoctorAndDate(
         data.doctorId,
         data.date
       );
@@ -69,6 +69,7 @@ export class FreeSchedulesUseCase {
           time: timeNow,
         });
       }
+
       timeNow = dayjs(data.date + timeNow)
         .add(duration, "minute")
         .format("HH:mm");
