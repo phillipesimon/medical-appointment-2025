@@ -19,6 +19,7 @@
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^7.0.12",
     "swagger-ui-express": "^5.0.1",
     "winston": "^3.17.0",
     "zod": "^4.1.12"
@@ -27,6 +28,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/nodemailer": "^7.0.4",
     "@types/swagger-ui-express": "^4.1.8",
     "@types/winston": "^2.4.4",
     "@vitest/coverage-istanbul": "^4.0.5",

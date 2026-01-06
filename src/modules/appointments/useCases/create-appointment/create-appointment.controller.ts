@@ -4,13 +4,15 @@ import { IPatientRepository } from "../../../patient/repositories/patient.reposi
 import { IAppointmentRepository } from "../../repositories/appointment.repository";
 import { CreateAppointmentUseCase } from "./create-appointment.usecase";
 import { IDoctorRepository } from "../../../doctor/repositories/doctor.repository";
+import { IMailProvider } from "../../../../infra/providers/mail/mail.proviider";
 
 export class CreateAppointmentController {
   constructor(
     private patientRepository: IPatientRepository,
     private doctorRepository: IDoctorRepository,
     private doctorScheduleRepository: IDoctorScheduleRepository,
-    private appointmentRepository: IAppointmentRepository
+    private appointmentRepository: IAppointmentRepository,
+    private mailProvider: IMailProvider
   ) {}
 
   async handle(request: Request, response: Response) {
@@ -18,7 +20,8 @@ export class CreateAppointmentController {
       this.patientRepository,
       this.doctorRepository,
       this.doctorScheduleRepository,
-      this.appointmentRepository
+      this.appointmentRepository,
+      this.mailProvider
     );
 
     try {
