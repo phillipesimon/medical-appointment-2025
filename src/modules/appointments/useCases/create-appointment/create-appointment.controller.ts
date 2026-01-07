@@ -26,9 +26,10 @@ export class CreateAppointmentController {
 
     try {
       await createAppointmentUseCase.execute(request.body, request.userId);
-      return response.status(204).end();
+      return response.status(201).json({ message: "Appointment created" });
     } catch (err: any) {
-      return response.status(err.statusCode ?? 500).json(err.mesage);
+      console.log(err);
+      return response.status(err.statusCode ?? 500).json(err.message);
     }
   }
 }

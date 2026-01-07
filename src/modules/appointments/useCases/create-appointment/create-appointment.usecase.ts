@@ -48,7 +48,7 @@ export class CreateAppointmentUseCase {
       );
 
     if (!doctorSchedule) {
-      throw new CustomError("Doctor does not attend that day!");
+      throw new CustomError("Doctor does not attend that day!", 400);
     }
 
     const dateFormat = formatDateUTC(data.date, "YYYY-MM-DD HH:mm");
@@ -60,7 +60,10 @@ export class CreateAppointmentUseCase {
       );
 
     if (existsAppointmentDoctor) {
-      throw new CustomError("There is already an appointment for this time!");
+      throw new CustomError(
+        "There is already an appointment for this time!",
+        400
+      );
     }
 
     const existsAppointmentPatient =
