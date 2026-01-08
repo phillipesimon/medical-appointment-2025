@@ -1,12 +1,8 @@
-import { IMailProvider } from "../../../../infra/providers/mail/mail.proviider";
-import { formatDate } from "../../../../utils/date";
+import { queueAppointmentNotification } from "../../../../infra/queue/notification-appointment/notification-appointment.queue";
 import { IAppointmentRepository } from "../../repositories/appointment.repository";
 
 export class CreateNotificationAppointmentUseCase {
-  constructor(
-    private appointmentRepository: IAppointmentRepository,
-    private mailProvider: IMailProvider
-  ) {}
+  constructor(private appointmentRepository: IAppointmentRepository) {}
 
   async execute() {
     const appointments =
@@ -15,12 +11,9 @@ export class CreateNotificationAppointmentUseCase {
       const emailPatient = appointment.patient.email;
       const date = appointment.date;
 
-      await this.mailProvider.sendMail({
-        to: emailPatient,
-        from: "Agendamento de Consulta <noreplay@agendamedico.com.br>",
-        html: `Olá! <br/>
-        não se esqueça da sua consulta hoje às ${formatDate(date, "HH:mm")}`,
-        subject: "Lembrete de agendamento de consulta.",
+      await queueAppointmentNotification.push({
+        email: emailPatient,
+        date: date,
       });
     });
     return appointments;
