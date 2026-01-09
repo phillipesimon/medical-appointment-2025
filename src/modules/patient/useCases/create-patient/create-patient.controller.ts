@@ -16,7 +16,8 @@ export class CreatePatientController {
         this.patientRepostiory
       );
 
-      const result = await createPatientUseCase.execute(request.body);
+      const avatar = request.file?.filename;
+      const result = await createPatientUseCase.execute(request.body, avatar);
       return response.json(result);
     } catch (err: any) {
       return response.status(err.statusCode).json(err.message);

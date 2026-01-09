@@ -7,6 +7,7 @@ type IUser = {
   name: string;
   password: string;
   username: string;
+  avatar?: string | null;
 };
 
 export class User {
@@ -15,17 +16,19 @@ export class User {
   username: string;
   id: string;
   isAdmin: boolean;
+  avatar?: string | null;
 
-  constructor({ name, password, username }: IUser) {
-    if (!username || !password) {
+  private constructor(props: IUser) {
+    if (!props.username || !props.password) {
       throw new ParameterRequiredError("Username/password is required.", 422);
     }
 
-    this.name = name;
-    this.password = password;
-    this.username = username;
+    this.name = props.name;
+    this.password = props.password;
+    this.username = props.username;
     this.id = randomUUID();
     this.isAdmin = false;
+    this.avatar = props.avatar;
   }
 
   static async create(props: IUser) {
