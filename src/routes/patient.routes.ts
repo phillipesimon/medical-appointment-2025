@@ -1,25 +1,20 @@
 import { Request, Response, Router } from "express";
 import { createPatientController } from "../modules/patient/useCases/create-patient";
 
+import uploadConfig from "../config/upload.config";
+
 import multer from "multer";
 
-const uploadTest = multer({
-  dest: "./upload",
-});
+const upload = multer(uploadConfig);
 
 const patientRouter = Router();
 
 patientRouter.post(
-  "/upload-test",
-  uploadTest.single("fileTest"),
-  (request: Request, response: Response) => {
-    console.log(request.file);
-    return response.json({ message: "Ok" });
+  "/patients",
+  upload.single("avatar"),
+  async (request, response) => {
+    await createPatientController.handle(request, response);
   }
 );
-
-patientRouter.post("/patients", async (request, response) => {
-  await createPatientController.handle(request, response);
-});
 
 export { patientRouter };
