@@ -1,4 +1,5 @@
 import { CustomError } from "../../../../error/custom.error";
+import { CreateConnectionRedis } from "../../../../infra/providers/redis";
 import { IPasswordCrypto } from "../../../../infra/shared/crypto/password.crypto";
 import { IToken } from "../../../../infra/shared/token/token";
 import { IUserRepository } from "../../repositories/user.repository";
@@ -44,6 +45,9 @@ export class AuthenticateUserUseCase {
       subject: user.id,
       expiresIn: 30,
     });
+
+    const redisClient = new CreateConnectionRedis();
+    await redisClient.setValue(user.id, refreshToken);
 
     return {
       token: tokenGenerated,
