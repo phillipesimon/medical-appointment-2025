@@ -6,7 +6,8 @@
     "dev": "nodemon src/server.ts",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "test:e2e": "vitest --config ./test/test.e2e.config.ts"
   },
   "keywords": [],
   "author": "",
@@ -34,12 +35,14 @@
     "@types/multer": "^2.0.0",
     "@types/node-cron": "^3.0.11",
     "@types/nodemailer": "^7.0.4",
+    "@types/supertest": "^6.0.3",
     "@types/swagger-ui-express": "^4.1.8",
     "@types/winston": "^2.4.4",
     "@vitest/coverage-istanbul": "^4.0.5",
     "@vitest/ui": "^4.0.5",
     "nodemon": "^3.1.10",
     "prisma": "^6.16.0",
+    "supertest": "^7.2.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
     "vitest": "^4.0.4"
