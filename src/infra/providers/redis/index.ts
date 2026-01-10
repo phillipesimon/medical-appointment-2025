@@ -14,7 +14,7 @@ export class CreateConnectionRedis {
   }
 
   public async getValue(key: string) {
-    return await this.client.get(key);
+    return this.client.get(key);
   }
 
   private createClient(): RedisTypeClient {
