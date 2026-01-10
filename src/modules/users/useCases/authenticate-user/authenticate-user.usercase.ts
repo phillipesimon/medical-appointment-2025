@@ -2,6 +2,7 @@ import { CustomError } from "../../../../error/custom.error";
 import { IPasswordCrypto } from "../../../../infra/shared/crypto/password.crypto";
 import { IToken } from "../../../../infra/shared/token/token";
 import { IUserRepository } from "../../repositories/user.repository";
+import { sign } from "jsonwebtoken";
 
 type AuthenticateRequest = {
   username: string;
@@ -37,6 +38,16 @@ export class AuthenticateUserUseCase {
 
     const tokenGenerated = this.token.create(user);
 
-    return tokenGenerated;
+    const refreshTokenSecret = process.env.SECRET_KEY_REFRESH_TOKEN || "";
+
+    const refreshToken = sign({}, refreshTokenSecret, {
+      subject: user.id,
+      expiresIn: 30,
+    });
+
+    return {
+      token: tokenGenerated,
+      refreshToken,
+    };
   }
 }
